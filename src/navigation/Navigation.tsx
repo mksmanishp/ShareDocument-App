@@ -8,6 +8,7 @@ import SplashScreen from '../screens/SplashScreen';
 import HomeScreen from '../screens/HomeScreen';
 import SendScreen from '../screens/SendScreen';
 import ConnectionScreen from '../screens/ConnectionScreen';
+import ReceiveScreen from '../screens/ReceiveScreen';
 
 const Stack = createNativeStackNavigator();
 const Navigation = () => {
@@ -33,6 +34,11 @@ const Navigation = () => {
         <Stack.Screen
           name="ConnectionScreen"
           component={ConnectionScreen}
+          options={{ animation: 'fade' }}
+        />
+        <Stack.Screen
+          name="ReceiveScreen"
+          component={ReceiveScreen}
           options={{ animation: 'fade' }}
         />
       </Stack.Navigator>

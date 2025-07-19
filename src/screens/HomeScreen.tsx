@@ -1,10 +1,12 @@
 import { StyleSheet, Text, View } from 'react-native';
 import React from 'react';
+import { commonStyles } from '../styles/commonStyles';
+import HomeHeader from '../components/home/HomeHeader';
 
 const HomeScreen = () => {
   return (
-    <View>
-      <Text>HomeScreen</Text>
+    <View style={commonStyles.baseContainer}>
+      <HomeHeader />
     </View>
   );
 };

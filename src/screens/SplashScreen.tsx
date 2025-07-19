@@ -12,7 +12,7 @@ const SplashScreen: FC = () => {
   }, []);
 
   const navigateToHome = () => {
-    navigate('ConnectionScreen');
+    navigate('HomeScreen');
   };
 
   return (
@@ -21,7 +21,7 @@ const SplashScreen: FC = () => {
       style={commonStyles.container}
     >
       <Image
-        source={require('../assets/images/share.png')}
+        source={require('../assets/images/logo_t.png')}
         style={commonStyles.img}
       />
     </ImageBackground>

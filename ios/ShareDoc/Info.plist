@@ -31,6 +31,23 @@
 		<key>NSAllowsLocalNetworking</key>
 		<true/>
 	</dict>
+	<key>NSLocalNetworkUsageDescription</key>
+    <string>Allow so that you can connect to nearby devices</string>
+    <key>NSBonjourServices</key>
+    <array>
+       <string>_http._tcp</string>
+    </array>
+    <key>NSCalendarsFullAccessUsageDescription</key>
+    <string>Your app needs access to documents to save files.</string>
+    <key>NSCalendarsWriteOnlyAccessUsageDescription</key>
+    <string>Your app needs access to documents to save files.</string>
+    <key>NSDocumentsFolderUsageDescription</key>
+    <string>Your app needs access to documents to save files.</string>
+    <key>NSCameraUsageDescription</key>
+    <string>$(PRODUCT_NAME) needs access to your Camera.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+    <string>$(PRODUCT_NAME) needs access to your photo libaray,files.</string>
+
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string/>
 	<key>RCTNewArchEnabled</key>
@@ -47,6 +64,8 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<key>UIFileSharingEnabled</key>
+	<true/>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
 	<false/>
 	<key>UIAppFonts</key>
@@ -56,6 +75,9 @@
 		<string>Okra-Medium.ttf</string>
 		<string>Okra-MediumLight.ttf</string>
 		<string>Okra-Regular.ttf</string>
+		<string>MaterialIcons.ttf</string>
+		<string>Ionicons.ttf</string>
+		<string>MaterilaCommunityIcons.ttf</string>
 	</array>
 </dict>
 </plist>

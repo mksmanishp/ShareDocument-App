@@ -10,45 +10,48 @@ import SendScreen from '../screens/SendScreen';
 import ConnectionScreen from '../screens/ConnectionScreen';
 import ReceiveScreen from '../screens/ReceiveScreen';
 import ReceivedFileScreen from '../screens/ReceivedFileScreen';
+import { TCPProvider } from '../service/TCPProvider';
 
 const Stack = createNativeStackNavigator();
 const Navigation = () => {
   return (
-    <NavigationContainer ref={navigationRef}>
-      <Stack.Navigator
-        screenOptions={{
-          headerShown: false,
-        }}
-        initialRouteName="SplashScreen"
-      >
-        <Stack.Screen name="SplashScreen" component={SplashScreen} />
-        <Stack.Screen
-          name="HomeScreen"
-          component={HomeScreen}
-          options={{ animation: 'fade' }}
-        />
-        <Stack.Screen
-          name="SendScreen"
-          component={SendScreen}
-          options={{ animation: 'fade' }}
-        />
-        <Stack.Screen
-          name="ConnectionScreen"
-          component={ConnectionScreen}
-          options={{ animation: 'fade' }}
-        />
-        <Stack.Screen
-          name="ReceiveScreen"
-          component={ReceiveScreen}
-          options={{ animation: 'fade' }}
-        />
-        <Stack.Screen
-          name="ReceivedFileScreen"
-          component={ReceivedFileScreen}
-          options={{ animation: 'fade' }}
-        />
-      </Stack.Navigator>
-    </NavigationContainer>
+    <TCPProvider>
+      <NavigationContainer ref={navigationRef}>
+        <Stack.Navigator
+          screenOptions={{
+            headerShown: false,
+          }}
+          initialRouteName="SplashScreen"
+        >
+          <Stack.Screen name="SplashScreen" component={SplashScreen} />
+          <Stack.Screen
+            name="HomeScreen"
+            component={HomeScreen}
+            options={{ animation: 'fade' }}
+          />
+          <Stack.Screen
+            name="SendScreen"
+            component={SendScreen}
+            options={{ animation: 'fade' }}
+          />
+          <Stack.Screen
+            name="ConnectionScreen"
+            component={ConnectionScreen}
+            options={{ animation: 'fade' }}
+          />
+          <Stack.Screen
+            name="ReceiveScreen"
+            component={ReceiveScreen}
+            options={{ animation: 'fade' }}
+          />
+          <Stack.Screen
+            name="ReceivedFileScreen"
+            component={ReceivedFileScreen}
+            options={{ animation: 'fade' }}
+          />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </TCPProvider>
   );
 };
 

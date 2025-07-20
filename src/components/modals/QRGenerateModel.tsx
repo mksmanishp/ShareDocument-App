@@ -21,14 +21,33 @@ import QRCode from 'react-native-qrcode-svg';
 import { multiColor } from '../../utils/Constants';
 import CustomText from '../global/CustomText';
 import Icon from '../global/Icon';
+import { useTCP } from '../../service/TCPProvider';
+import { getLocalIPAddress } from '../../utils/networkUtils';
+import DeviceInfo from 'react-native-device-info';
+import { navigate } from '../../utils/NavigationUtil';
 interface ModalProps {
   visible: boolean;
   onClose: () => void;
 }
 const QRGenerateModel: FC<ModalProps> = ({ visible, onClose }) => {
+  const { isConnected, startServer, server } = useTCP();
+
   const [loading, setLOading] = useState(true);
   const [qrValue, setQRValue] = useState('Manish');
   const shimmerTranslateX = useSharedValue(-300);
+
+  const setupServer = async () => {
+    const deviceName = await DeviceInfo.getDeviceName();
+    const ip = await getLocalIPAddress(); // Make sure getLocalIPAddress is correctly imported
+    const port = 4000;
+
+    if (!server) {
+      startServer(port);
+    }
+
+    setQRValue(`tcp://${ip}:${port}|${deviceName}`);
+    console.log(`Server info: ${ip}:${port}`);
+  };
 
   useEffect(() => {
     shimmerTranslateX.value = withRepeat(
@@ -36,7 +55,18 @@ const QRGenerateModel: FC<ModalProps> = ({ visible, onClose }) => {
       -1,
       false,
     );
+    if (visible) {
+      setLOading(true);
+      setupServer();
+    }
   }, [visible]);
+
+  useEffect(() => {
+    if (isConnected) {
+      onClose();
+      navigate('ConnectionScreen');
+    }
+  }, [isConnected]);
 
   const shimmerStyle = useAnimatedStyle(() => {
     return {

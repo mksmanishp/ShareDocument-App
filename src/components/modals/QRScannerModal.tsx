@@ -27,11 +27,14 @@ import {
 import CustomText from '../global/CustomText';
 import Icon from '../global/Icon';
 import { Image } from 'react-native';
+import { useTCP } from '../../service/TCPProvider';
+import { navigate } from '../../utils/NavigationUtil';
 interface ModalProps {
   visible: boolean;
   onClose: () => void;
 }
 const QRScannerModal: FC<ModalProps> = ({ visible, onClose }) => {
+  const { isConnected, server, connectToServer } = useTCP();
   const [loading, setLOading] = useState(true);
   const [codeFound, setCodeFound] = useState(false);
   const [hasPermission, setHasPermission] = useState(false);
@@ -85,30 +88,23 @@ const QRScannerModal: FC<ModalProps> = ({ visible, onClose }) => {
         }
       },
     }),
-    [],
+    [codeFound],
   );
 
   const handleScan = (data: any) => {
-    try {
-      const [connectionData, deviceName] = data
-        .replace('tcp://', '')
-        .split('|');
-      const [host, portStr] = connectionData.split(':');
-      const port = parseInt(portStr, 10);
+    const [connectionData, deviceName] = data.replace('tcp://', '').split('|');
+    const [host, port] = connectionData?.split(':');
 
-      if (!host || isNaN(port) || !deviceName) {
-        throw new Error('Invalid scan data format');
-      }
-
-      console.log('Host:', host);
-      console.log('Port:', port);
-      console.log('Device Name:', deviceName);
-
-      // Proceed with connection logic or state update
-    } catch (error) {
-      console.error('Failed to parse scan data:', error);
-    }
+    //connectToServer
+    connectToServer(host, parseInt(port, 10), deviceName);
   };
+
+  useEffect(() => {
+    if (isConnected) {
+      onClose();
+      navigate('ConnectionScreen');
+    }
+  }, [isConnected]);
 
   return (
     <Modal

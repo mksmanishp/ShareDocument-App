@@ -144,6 +144,35 @@ const SendScreen = () => {
     };
   }, []);
 
+  // useEffect(() => {
+  //   const timer = setInterval(() => {
+  //     if (nearbyDevices.length < deviceNames.length) {
+  //       const newDevice = {
+  //         id: `${nearbyDevices.length + 1}`,
+  //         name: deviceNames[nearbyDevices.length],
+  //         image: require('../assets/icons/device.jpeg'),
+  //         position: getRandomPosition(
+  //           150,
+  //           nearbyDevices.map(d => d.position),
+  //           50,
+  //         ),
+  //         scale: new Animated.Value(0),
+  //       };
+
+  //       setNearbyDevices(prevDevices => [...prevDevices, newDevice]);
+
+  //       Animated.timing(newDevice.scale, {
+  //         toValue: 1,
+  //         duration: 500,
+  //         easing: Easing.out(Easing.ease),
+  //         useNativeDriver: true,
+  //       }).start();
+  //     } else {
+  //       clearInterval(timer);
+  //     }
+  //   }, 2000);
+  // }, []);
+
   return (
     <LinearGradient
       colors={['#FFFFFF', '#B689ED', '#3387C5']}
@@ -216,7 +245,7 @@ const SendScreen = () => {
               >
                 <TouchableOpacity
                   style={sendStyles.popup}
-                  onPress={() => handleScan(device)}
+                  onPress={() => handleScan(device?.fullAddress)}
                 >
                   <Image source={device.image} style={sendStyles.deviceImage} />
                   <CustomText

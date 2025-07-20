@@ -187,55 +187,83 @@ const ConnectionScreen: FC = () => {
           />
           <View style={connectionStyles.fileContainer}>
             <View style={connectionStyles.sendReceiveContainer}>
-              <TouchableOpacity
-                onPress={() => handleTabChange('SENT')}
-                style={[
-                  connectionStyles.sendReceiveButton,
-                  activeTab === 'SENT'
-                    ? connectionStyles.activeButton
-                    : connectionStyles.inactiveButton,
-                ]}
-              >
-                <Icon
-                  name="cloud-upload"
-                  size={12}
-                  color={activeTab === 'SENT' ? '#fff' : 'blue'}
-                  iconFamily="Ionicons"
-                />
-                <CustomText
-                  numberOfLines={1}
-                  fontFamily="Okra-Bold"
-                  fontSize={9}
-                  color={activeTab === 'SENT' ? '#fff' : '#000'}
+              <View style={connectionStyles.sendReceiveButtonContainer}>
+                <TouchableOpacity
+                  onPress={() => handleTabChange('SENT')}
+                  style={[
+                    connectionStyles.sendReceiveButton,
+                    activeTab === 'SENT'
+                      ? connectionStyles.activeButton
+                      : connectionStyles.inactiveButton,
+                  ]}
                 >
-                  SENT
-                </CustomText>
-              </TouchableOpacity>
-              <TouchableOpacity
-                onPress={() => handleTabChange('RECEIVED')}
-                style={[
-                  connectionStyles.sendReceiveButton,
-                  activeTab === 'RECEIVED'
-                    ? connectionStyles.activeButton
-                    : connectionStyles.inactiveButton,
-                ]}
-              >
-                <Icon
-                  name="cloud-upload"
-                  size={12}
-                  color={activeTab === 'RECEIVED' ? '#fff' : 'blue'}
-                  iconFamily="Ionicons"
-                />
-                <CustomText
-                  numberOfLines={1}
-                  fontFamily="Okra-Bold"
-                  fontSize={9}
-                  color={activeTab === 'RECEIVED' ? '#fff' : '#000'}
+                  <Icon
+                    name="cloud-upload"
+                    size={12}
+                    color={activeTab === 'SENT' ? '#fff' : 'blue'}
+                    iconFamily="Ionicons"
+                  />
+                  <CustomText
+                    numberOfLines={1}
+                    fontFamily="Okra-Bold"
+                    fontSize={9}
+                    color={activeTab === 'SENT' ? '#fff' : '#000'}
+                  >
+                    SENT
+                  </CustomText>
+                </TouchableOpacity>
+                <TouchableOpacity
+                  onPress={() => handleTabChange('RECEIVED')}
+                  style={[
+                    connectionStyles.sendReceiveButton,
+                    activeTab === 'RECEIVED'
+                      ? connectionStyles.activeButton
+                      : connectionStyles.inactiveButton,
+                  ]}
                 >
-                  RECEIVED
+                  <Icon
+                    name="cloud-upload"
+                    size={12}
+                    color={activeTab === 'RECEIVED' ? '#fff' : 'blue'}
+                    iconFamily="Ionicons"
+                  />
+                  <CustomText
+                    numberOfLines={1}
+                    fontFamily="Okra-Bold"
+                    fontSize={9}
+                    color={activeTab === 'RECEIVED' ? '#fff' : '#000'}
+                  >
+                    RECEIVED
+                  </CustomText>
+                </TouchableOpacity>
+              </View>
+              <View style={connectionStyles.sendReceiveDataContainer}>
+                <CustomText fontFamily="Okra-Bold" fontSize={9}>
+                  {formatFileSize(
+                    activeTab === 'SENT'
+                      ? totalSentBytes
+                      : totalReceivedBytes || 0,
+                  )}
                 </CustomText>
-              </TouchableOpacity>
+                <CustomText fontFamily="Okra-Bold" fontSize={12}>
+                  /
+                </CustomText>
+                <CustomText fontFamily="Okra-Bold" fontSize={10}>
+                  {formatFileSize(
+                    activeTab === 'SENT'
+                      ? sentFiles?.reduce(
+                          (total: number, file: any) => total * file.size,
+                          0,
+                        )
+                      : receivedFiles?.reduce(
+                          (total: number, file: any) => total * file.size,
+                          0,
+                        ),
+                  )}
+                </CustomText>
+              </View>
             </View>
+
             {(activeTab === 'SENT'
               ? sentFiles?.length
               : receivedFiles?.length) > 0 ? (
